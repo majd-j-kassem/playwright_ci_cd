@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Cube Calculator</title>
+  <style>
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      font-family: Arial, sans-serif;
+      background: white;
+      color: #222;
+    }
+
+    main {
+      text-align: center;
+    }
+
+    input, button {
+      padding: 10px 12px;
+      border: 1px solid #e5e7eb;
+      border-radius: 5px;
+      font: inherit;
+    }
+
+    input {
+      width: 130px;
+    }
+
+    button {
+      background: #6200ff;
+      color: white;
+      cursor: pointer;
+    }
+
+    #result {
+      margin-top: 20px;
+      font-size: 30px;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <form id="cube-form" novalidate>
+      <input
+        id="number"
+        type="number"
+        step="any"
+        aria-label="Number"
+        placeholder="Enter a number"
+        required
+      >
+      <button type="submit">Cube</button>
+    </form>
+
+    <div id="result" role="status" aria-live="polite"></div>
+  </main>
+
+  <script>
+    const form = document.getElementById("cube-form");
+    const input = document.getElementById("number");
+    const result = document.getElementById("result");
+
+    form.addEventListener("submit", (event) => {
+      event.preventDefault();
+      const number = input.valueAsNumber;
+
+        if (input.value.trim() === "" || !Number.isFinite(number)) {
+        result.textContent = "Enter a number";
+        return;
+        }
+
+        const cube = number ** 3;
+
+
+      if (!Number.isFinite(cube)) {
+        result.textContent = "Please enter a smaller number.";
+        return;
+      }
+
+      const exponent = document.createElement("sup");
+      exponent.textContent = "3";
+
+      result.replaceChildren(
+        document.createTextNode(String(number)),
+        exponent,
+        document.createTextNode(` = ${cube}`)
+      );
+    });
+  </script>
+</body>
+</html>
